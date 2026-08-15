@@ -1,25 +1,34 @@
 /* =========================================================
    Oyedeji Amao — Portfolio
-   Design system: navy blazer, brass gold, cream trouser.
-   Old-school elegance, worn comfortably.
+   Design system: executive navy, muted gold, bone white,
+   with a Ralph Lauren blue for interactive highlights.
    ========================================================= */
 
 :root {
-  --navy-950: #081428;
-  --navy-900: #0d1f3c;
-  --navy-800: #142c52;
-  --navy-700: #1d3c6b;
-  --navy-600: #2c4f85;
+  /* Deep Executive Navy — headings, hero/nav backgrounds, authority */
+  --navy-950: #002349;
+  --navy-900: #002349;
+  --navy-800: #244262;
+  --navy-700: #47617c;
+  --navy-600: #6b7f95;
 
-  --gold-600: #9c7a32;
-  --gold-500: #b8923f;
-  --gold-400: #c9a54f;
-  --gold-300: #dcc384;
+  /* Muted Gold — CTAs, branding accents, a touch of prestige */
+  --gold-600: #7e764e;
+  --gold-500: #baad72;
+  --gold-400: #cabb8c;
+  --gold-300: #d2caa3;
 
-  --cream-100: #fffcf6;
-  --cream-200: #faf4e6;
-  --cream-300: #f2e9d3;
-  --cream-400: #e8dbb8;
+  /* Linen/Bone White + supporting neutrals */
+  --cream-100: #faf9fd;
+  --cream-200: #f4f3f7;
+  --cream-300: #dad9dd;
+  --cream-400: #dad9dd;
+
+  /* Ralph Lauren Blue — interactive highlights: links, hover, active states */
+  --rl-blue: #0055a4;
+  --rl-blue-dark: #00488b;
+  --rl-blue-tint: #d9e6f1;
+  --rl-blue-tint-on-navy: #6fa3d4;
 
   --charcoal: #1c2129;
   --slate: #4a5364;
@@ -33,8 +42,8 @@
   --max-width: 1180px;
   --radius: 3px;
 
-  --shadow-soft: 0 1px 2px rgba(8, 20, 40, 0.06), 0 8px 24px rgba(8, 20, 40, 0.06);
-  --shadow-lift: 0 4px 8px rgba(8, 20, 40, 0.08), 0 16px 40px rgba(8, 20, 40, 0.10);
+  --shadow-soft: 0 1px 2px rgba(0, 35, 73, 0.06), 0 8px 24px rgba(0, 35, 73, 0.06);
+  --shadow-lift: 0 4px 8px rgba(0, 35, 73, 0.08), 0 16px 40px rgba(0, 35, 73, 0.10);
 }
 
 /* ---------- Reset ---------- */
@@ -88,18 +97,21 @@ h1, .h1 {
   line-height: 1.12;
   letter-spacing: -0.01em;
   font-size: clamp(2.2rem, 4.4vw, 3.6rem);
+  color: var(--navy-950);
 }
 h2, .h2 {
   font-family: var(--font-display);
   font-weight: 700;
   line-height: 1.18;
   font-size: clamp(1.7rem, 3vw, 2.4rem);
+  color: var(--navy-950);
 }
 h3, .h3 {
   font-family: var(--font-display);
   font-weight: 600;
   line-height: 1.3;
   font-size: clamp(1.2rem, 2vw, 1.5rem);
+  color: var(--navy-950);
 }
 .lede {
   font-size: clamp(1.05rem, 1.6vw, 1.25rem);
@@ -166,14 +178,14 @@ strong { color: var(--charcoal); font-weight: 600; }
   align-items: center;
   gap: 8px;
   font-weight: 600;
-  color: var(--navy-800);
-  border-bottom: 1.5px solid var(--gold-400);
+  color: var(--rl-blue);
+  border-bottom: 1.5px solid var(--rl-blue);
   padding-bottom: 2px;
   transition: color 0.2s ease, border-color 0.2s ease, gap 0.2s ease;
 }
-.text-link:hover { color: var(--gold-600); gap: 12px; }
-.text-link.on-navy { color: var(--cream-100); border-color: var(--gold-400); }
-.text-link.on-navy:hover { color: var(--gold-300); }
+.text-link:hover { color: var(--rl-blue-dark); border-color: var(--rl-blue-dark); gap: 12px; }
+.text-link.on-navy { color: var(--rl-blue-tint-on-navy); border-color: var(--rl-blue-tint-on-navy); }
+.text-link.on-navy:hover { color: var(--cream-100); border-color: var(--cream-100); }
 
 /* ---------- Header ---------- */
 .site-header {
@@ -243,7 +255,7 @@ strong { color: var(--charcoal); font-weight: 600; }
   border-radius: var(--radius);
   transition: color 0.2s ease, background 0.2s ease;
 }
-.nav-link:hover, .nav-link.active { color: var(--gold-600); background: var(--cream-200); }
+.nav-link:hover, .nav-link.active { color: var(--rl-blue); background: var(--cream-200); }
 .caret { font-size: 0.6rem; margin-top: 1px; opacity: 0.7; }
 
 .dropdown { position: relative; }
@@ -283,7 +295,7 @@ strong { color: var(--charcoal); font-weight: 600; }
   font-size: 0.76rem;
   margin-top: 2px;
 }
-.dropdown-panel a:hover { background: var(--cream-200); color: var(--gold-600); }
+.dropdown-panel a:hover { background: var(--cream-200); color: var(--rl-blue); }
 
 .nav-cta { margin-left: 8px; }
 
@@ -377,6 +389,19 @@ section { padding: 84px 0; }
 .section-cream { background: var(--cream-200); }
 .section-tight { padding: 64px 0; }
 
+/* Bone ground with a fine Ralph Lauren blue pinstripe — used sparingly,
+   on the numbers strip and the closing CTA panels, for suiting-fabric texture */
+.pinstripe {
+  background-color: var(--cream-100);
+  background-image: repeating-linear-gradient(
+    90deg,
+    rgba(0, 85, 164, 0.09) 0,
+    rgba(0, 85, 164, 0.09) 1px,
+    transparent 1px,
+    transparent 27px
+  );
+}
+
 .section-head { max-width: 720px; margin-bottom: 48px; }
 .section-head h2 { margin-top: 14px; }
 .section-head .lede { margin-top: 14px; }
@@ -433,7 +458,7 @@ section { padding: 84px 0; }
   gap: 16px;
   transition: box-shadow 0.2s ease, transform 0.2s ease, border-color 0.2s ease;
 }
-.case-card:hover { box-shadow: var(--shadow-lift); transform: translateY(-3px); border-color: var(--gold-400); }
+.case-card:hover { box-shadow: var(--shadow-lift); transform: translateY(-3px); border-color: var(--rl-blue); }
 .case-card .case-meta { font-size: 0.82rem; color: var(--slate-light); font-weight: 600; }
 .case-card h3 { color: var(--navy-950); }
 .case-card p { color: var(--slate); font-size: 0.98rem; line-height: 1.6; }
@@ -602,7 +627,7 @@ section { padding: 84px 0; }
   padding: 30px;
   transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
 }
-.contact-card:hover { border-color: var(--gold-400); box-shadow: var(--shadow-soft); transform: translateY(-2px); }
+.contact-card:hover { border-color: var(--rl-blue); box-shadow: var(--shadow-soft); transform: translateY(-2px); }
 .contact-card .label { font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold-600); font-weight: 700; }
 .contact-card .value { font-family: var(--font-display); font-size: 1.15rem; color: var(--navy-950); margin-top: 10px; font-weight: 700; }
 
@@ -627,7 +652,7 @@ section { padding: 84px 0; }
 .footer-nav { display: flex; gap: 32px; flex-wrap: wrap; }
 .footer-nav-col { display: flex; flex-direction: column; gap: 10px; }
 .footer-nav-col a { font-size: 0.9rem; color: var(--cream-300); }
-.footer-nav-col a:hover { color: var(--gold-400); }
+.footer-nav-col a:hover { color: var(--rl-blue-tint-on-navy); }
 .footer-nav-col .col-title { font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold-400); font-weight: 700; margin-bottom: 4px; }
 .footer-bottom {
   display: flex;
