@@ -1,10 +1,10 @@
 # Oyedeji Amao — Portfolio Site
 
-Plain HTML/CSS/JS, no build step, no dependencies.
+Plain HTML/CSS/JS, no build step, no dependencies. All links between pages use relative paths, so the site works unmodified whether it's hosted at a domain root (Netlify, Vercel) or a subpath (a GitHub Pages project site).
 
 ## Preview locally
 
-Root-relative paths (`/css/style.css`, `/about.html`) need a local server — opening files directly via `file://` won't resolve them.
+Relative paths still need an actual server — opening files directly via `file://` won't resolve them correctly from every folder depth.
 
 ```
 python3 -m http.server 8000
@@ -12,11 +12,20 @@ python3 -m http.server 8000
 
 Then visit `http://localhost:8000`.
 
-## Deploy
+## Deploy to GitHub Pages
 
-Any static host works (Netlify, Vercel, GitHub Pages, Cloudflare Pages). No build command or environment variables are required — just point the host at the repo root.
+1. Push this branch, then merge it into the repo's default branch (Pages serves from a single branch, not arbitrary branches, unless you point it at this one directly).
+2. On GitHub: **Settings → Pages**.
+3. Under **Build and deployment → Source**, choose **Deploy from a branch**.
+4. Under **Branch**, pick the branch (e.g. `main` or this one) and folder **/ (root)**, then **Save**.
+5. GitHub builds and publishes in about a minute. The URL appears at the top of that same Settings → Pages screen — for this repo it will be `https://elzanneamao.github.io/OyedejiAmao/`.
+6. Revisit the page and refresh after a minute if it shows "Pages not built yet."
 
-If deploying somewhere other than `oyedejiamao.netlify.app`, update the domain in `robots.txt` and `sitemap.xml`.
+## Deploy elsewhere
+
+Netlify, Vercel, Cloudflare Pages, etc. all work with zero configuration — point the host at the repo root, no build command needed.
+
+If the live domain isn't `elzanneamao.github.io/OyedejiAmao`, update the domain in `robots.txt` and `sitemap.xml` to match.
 
 ## Structure
 

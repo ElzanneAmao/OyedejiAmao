@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://oyedejiamao.netlify.app/sitemap.xml
+Sitemap: https://elzanneamao.github.io/OyedejiAmao/sitemap.xml

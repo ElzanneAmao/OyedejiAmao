@@ -23,13 +23,15 @@
     });
   }
 
-  // Mark active nav link
+  // Mark active nav link. Hrefs are relative, so resolve each against the
+  // current URL before comparing — works whether the site is hosted at a
+  // domain root or a subpath (e.g. GitHub Pages project sites).
   var path = window.location.pathname.replace(/\/index\.html$/, "/");
   document.querySelectorAll("[data-nav-link]").forEach(function (link) {
     var href = link.getAttribute("href");
     if (!href) return;
-    var normalized = href.replace(/\/index\.html$/, "/");
-    if (normalized === path || (normalized !== "/" && path.indexOf(normalized) === 0)) {
+    var resolved = new URL(href, window.location.href).pathname.replace(/\/index\.html$/, "/");
+    if (resolved === path) {
       link.classList.add("active");
     }
   });
