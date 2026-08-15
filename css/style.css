@@ -471,49 +471,6 @@ section { padding: 84px 0; }
   color: var(--gold-600);
 }
 
-/* ---------- Timeline (About / Results) ---------- */
-.timeline { display: flex; flex-direction: column; gap: 0; }
-.timeline-item {
-  display: grid;
-  grid-template-columns: 200px 1fr;
-  gap: 32px;
-  padding: 32px 0;
-  border-top: 1px solid var(--cream-400);
-}
-.timeline-item:first-child { border-top: 1px solid var(--cream-400); }
-.timeline-period {
-  font-family: var(--font-display);
-  font-weight: 700;
-  color: var(--navy-900);
-  font-size: 1.05rem;
-}
-.timeline-role { font-size: 0.86rem; color: var(--gold-600); font-weight: 600; margin-top: 6px; }
-.timeline-body h3 { color: var(--navy-950); margin-bottom: 10px; }
-.timeline-body p { color: var(--slate); line-height: 1.7; max-width: 62ch; }
-.result-list { margin-top: 14px; display: flex; flex-direction: column; gap: 10px; }
-.result-list li {
-  display: flex;
-  gap: 12px;
-  align-items: baseline;
-  color: var(--slate);
-  font-size: 0.98rem;
-  line-height: 1.6;
-}
-.result-list li::before {
-  content: "";
-  flex: none;
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  background: var(--gold-500);
-  margin-top: 6px;
-}
-.result-list li strong { color: var(--navy-950); }
-
-@media (max-width: 720px) {
-  .timeline-item { grid-template-columns: 1fr; gap: 10px; }
-}
-
 /* ---------- Steps (How I Work) ---------- */
 .step-list { display: flex; flex-direction: column; }
 .step {
@@ -562,20 +519,6 @@ section { padding: 84px 0; }
 }
 .panel-navy p { color: var(--cream-300); }
 .panel-navy h3 { color: var(--white); }
-
-/* ---------- Qualifications ---------- */
-.qual-list { display: flex; flex-direction: column; gap: 14px; margin-top: 18px; }
-.qual-list li {
-  display: flex;
-  gap: 14px;
-  align-items: flex-start;
-  font-size: 0.98rem;
-  color: var(--slate);
-  padding-bottom: 14px;
-  border-bottom: 1px solid var(--cream-400);
-}
-.qual-list li:last-child { border-bottom: none; }
-.qual-list li span.mark { color: var(--gold-500); font-weight: 700; }
 
 /* ---------- Case study page ---------- */
 .meta-row {

@@ -33,7 +33,6 @@ If the live domain isn't `elzanneamao.github.io/OyedejiAmao`, update the domain 
 index.html                     Home
 about.html
 how-i-work.html
-results.html
 contact.html
 case-studies/index.html        Case studies overview
 case-studies/*.html            4 individual case studies
