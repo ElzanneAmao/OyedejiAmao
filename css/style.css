@@ -390,16 +390,28 @@ section { padding: 84px 0; }
 .section-tight { padding: 64px 0; }
 
 /* Bone ground with a fine Ralph Lauren blue pinstripe — used sparingly,
-   on the numbers strip and the closing CTA panels, for suiting-fabric texture */
+   on the numbers strip and the closing CTA panels, for suiting-fabric texture.
+   The pattern lives on a masked ::before (not the section background) so it
+   can fade at the top/bottom edges instead of hard-cutting like ruled paper. */
 .pinstripe {
+  position: relative;
+  z-index: 0; /* establish a stacking context so ::before's z-index:-1 stays local */
   background-color: var(--cream-100);
+}
+.pinstripe::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
   background-image: repeating-linear-gradient(
     90deg,
-    rgba(0, 85, 164, 0.09) 0,
-    rgba(0, 85, 164, 0.09) 1px,
+    rgba(0, 85, 164, 0.16) 0,
+    rgba(0, 85, 164, 0.16) 1px,
     transparent 1px,
-    transparent 27px
+    transparent 9px
   );
+  -webkit-mask-image: linear-gradient(to bottom, transparent, black 18%, black 82%, transparent);
+  mask-image: linear-gradient(to bottom, transparent, black 18%, black 82%, transparent);
 }
 
 .section-head { max-width: 720px; margin-bottom: 48px; }
