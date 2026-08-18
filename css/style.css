@@ -371,11 +371,53 @@ strong { color: var(--charcoal); font-weight: 600; }
   background-image: repeating-linear-gradient(115deg, rgba(201, 165, 79, 0.05) 0 1px, transparent 1px 90px);
   pointer-events: none;
 }
-.hero .container { position: relative; }
-.hero h1 { color: var(--white); margin-top: 18px; max-width: 18ch; }
-.hero .lede { color: var(--cream-300); max-width: 58ch; margin-top: 20px; }
-.hero-positioning { color: var(--cream-300); max-width: 62ch; margin-top: 24px; font-size: 1.02rem; line-height: 1.75; }
-.hero .cta-row { margin-top: 34px; }
+/* Two-column hero: claim on the left, supporting copy and actions on the
+   right. Both columns are bottom-aligned so the H1 and the CTA row sit on
+   the same baseline, and the layout reads as composed rather than as a
+   left block with an empty right half. */
+.hero-inner {
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 72px;
+}
+.hero-lead { flex: 1 1 auto; max-width: 620px; }
+.hero-aside { flex: 0 0 400px; max-width: 400px; }
+
+.hero h1 { color: var(--white); margin-top: 18px; max-width: 15ch; }
+.hero .lede { color: var(--cream-300); margin-top: 0; font-size: 1.06rem; }
+.hero .cta-row { margin-top: 28px; }
+
+.hero-credentials {
+  display: flex;
+  gap: 48px;
+  margin-top: 40px;
+}
+.hero-cred { display: flex; flex-direction: column; gap: 4px; }
+.hero-cred-value {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.3rem;
+  color: var(--gold-300);
+  line-height: 1.2;
+}
+.hero-cred-label {
+  font-size: 0.78rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: rgba(250, 249, 253, 0.55);
+}
+
+@media (max-width: 1000px) {
+  .hero-inner { flex-direction: column; align-items: stretch; gap: 40px; }
+  .hero-lead, .hero-aside { max-width: 100%; flex: 1 1 auto; }
+  .hero h1 { max-width: 18ch; }
+}
+@media (max-width: 560px) {
+  .hero-credentials { gap: 28px; }
+}
 
 .page-hero {
   background: var(--navy-950);
