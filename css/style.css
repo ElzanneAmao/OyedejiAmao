@@ -678,6 +678,124 @@ section { padding: 84px 0; }
   font-style: italic;
 }
 
+/* ---------- Case study feed ----------
+   Image-led cards. `.case-post` is deliberately separate from `.case-card`,
+   which the individual case study pages use for in-page content blocks. */
+.case-feed-head {
+  display: grid;
+  grid-template-columns: 1fr 400px;
+  gap: 40px;
+  align-items: start;
+  margin-bottom: 48px;
+}
+.case-feed-head h2 { margin-top: 14px; max-width: 20ch; }
+.case-feed-aside { padding-top: 76px; }
+.case-feed-aside p { color: var(--slate); max-width: 34ch; }
+.case-feed-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  margin-top: 28px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--cream-400);
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--navy-950);
+  transition: gap 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+}
+.case-feed-link:hover { gap: 20px; border-color: var(--rl-blue); color: var(--rl-blue); }
+.case-feed-link svg { width: 19px; height: 19px; }
+
+.case-post-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 28px; }
+
+.case-post {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background: var(--white);
+  border: 1px solid var(--cream-400);
+  border-radius: 18px;
+  box-shadow: 0 1px 2px -1px rgba(0, 35, 73, 0.08), 0 2px 6px rgba(0, 35, 73, 0.04);
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+}
+.case-post:hover {
+  transform: translateY(-3px);
+  border-color: var(--cream-300);
+  box-shadow: 0 2px 4px -1px rgba(0, 35, 73, 0.1), 0 12px 26px rgba(0, 35, 73, 0.08);
+}
+.case-post-media {
+  position: relative;
+  height: 240px;
+  overflow: hidden;
+  background: var(--navy-900);
+}
+.case-post-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.5s ease;
+}
+.case-post:hover .case-post-media img { transform: scale(1.05); }
+
+.case-post-body {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  padding: 22px 26px 24px;
+}
+.case-post-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  font-size: 0.84rem;
+  color: var(--slate);
+}
+.case-post-cat { display: flex; align-items: center; gap: 9px; font-weight: 600; }
+.case-post-dot { width: 8px; height: 8px; border-radius: 50%; flex: none; background: var(--gold-500); }
+.case-post.accent-blue .case-post-dot { background: var(--rl-blue); }
+.case-post.accent-navy .case-post-dot { background: var(--navy-800); }
+.case-post-date { flex: none; color: var(--slate-light); }
+
+.case-post h3 {
+  margin-top: 12px;
+  font-size: 1.28rem;
+  line-height: 1.32;
+  color: var(--navy-950);
+  letter-spacing: -0.01em;
+}
+.case-post-desc {
+  margin-top: 10px;
+  margin-bottom: 20px;
+  font-size: 0.94rem;
+  line-height: 1.65;
+  color: var(--slate);
+}
+.case-post-more {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  margin-top: auto;
+  padding-top: 20px;
+  border-top: 1px solid var(--cream-300);
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: var(--rl-blue);
+}
+.case-post-more svg { width: 16px; height: 16px; transition: transform 0.25s ease; }
+.case-post:hover .case-post-more svg { transform: translateX(5px); }
+
+@media (max-width: 1000px) {
+  .case-feed-head { grid-template-columns: 1fr; gap: 24px; }
+  .case-feed-aside { padding-top: 0; }
+  .case-feed-head h2 { max-width: 100%; }
+}
+@media (max-width: 780px) {
+  .case-post-grid { grid-template-columns: 1fr; }
+  .case-post-media { height: 210px; }
+}
+
 /* ---------- Testimonials ----------
    Cream ground with raised white cards, mirroring the credibility band.
    Each card pins its attribution to the bottom so the names line up across
