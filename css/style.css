@@ -902,7 +902,7 @@ section { padding: 84px 0; }
   flex-direction: column;
   align-items: center;
   text-align: center;
-  padding: 40px 28px;
+  padding: 44px 28px;
   background: var(--white);
   transition: background 0.2s ease;
 }
@@ -928,35 +928,17 @@ a.contact-method:hover { background: var(--cream-200); }
 a.contact-method:hover .contact-method-icon { transform: translateY(-2px); }
 
 .contact-method h3 {
-  font-size: 1.15rem;
+  font-size: 1.1rem;
   color: var(--navy-950);
-  margin-bottom: 10px;
-}
-.contact-method-desc {
-  font-size: 0.92rem;
-  line-height: 1.6;
-  color: var(--slate);
-  margin-bottom: 18px;
-  max-width: 30ch;
+  margin-bottom: 8px;
 }
 .contact-method-detail {
-  margin-top: auto;
   font-weight: 600;
   font-size: 1rem;
   color: var(--navy-900);
   word-break: break-word;
 }
 a.contact-method:hover .contact-method-detail { color: var(--rl-blue); }
-
-.contact-footnote {
-  margin-top: 44px;
-  text-align: center;
-  font-size: 0.95rem;
-  color: var(--slate);
-  max-width: 52ch;
-  margin-left: auto;
-  margin-right: auto;
-}
 
 @media (max-width: 860px) {
   .contact-methods { grid-template-columns: 1fr; }
