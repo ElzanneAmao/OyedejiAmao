@@ -463,75 +463,97 @@ section { padding: 84px 0; }
 
 /* ---------- Credibility banner ---------- */
 .credibility-band {
-  background: linear-gradient(135deg, var(--gold-600), var(--gold-500) 55%, var(--gold-400));
-  padding: 56px 0;
+  background: var(--cream-200);
+  padding: 72px 0;
 }
 .credibility-bar {
   text-align: center;
   max-width: 900px;
   margin: 0 auto;
 }
-.credibility-bar .eyebrow {
-  justify-content: center;
-  color: rgba(0, 35, 73, 0.62);
-}
-.credibility-bar .eyebrow::before { background: rgba(0, 35, 73, 0.62); }
+.credibility-bar .eyebrow { justify-content: center; }
 .credibility-heading {
-  font-size: clamp(1.3rem, 2vw, 1.6rem);
+  font-size: clamp(1.6rem, 3vw, 2.2rem);
   color: var(--navy-950);
   margin-top: 14px;
-}
-.credibility-stats {
-  display: flex;
-  justify-content: center;
-  gap: 0;
-  margin-top: 36px;
-}
-.credibility-stat {
-  flex: 1;
-  padding: 8px 28px;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  position: relative;
-}
-.credibility-stat + .credibility-stat::before {
-  content: "";
-  position: absolute;
-  left: 0;
-  top: 8%;
-  height: 84%;
-  width: 1px;
-  background: rgba(0, 35, 73, 0.18);
-}
-.credibility-label {
-  font-size: 0.76rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  color: rgba(0, 35, 73, 0.62);
-}
-.credibility-value {
-  font-family: var(--font-display);
-  font-weight: 700;
-  font-size: clamp(2rem, 4.2vw, 2.9rem);
-  line-height: 1.1;
   letter-spacing: -0.01em;
 }
-.credibility-value .cred-before { color: rgba(0, 35, 73, 0.5); font-weight: 600; }
-.credibility-value .cred-arrow { color: rgba(0, 35, 73, 0.4); margin: 0 6px; font-weight: 400; }
-.credibility-value .cred-after { color: var(--navy-950); font-weight: 800; }
-.credibility-source {
-  margin-top: 32px;
-  font-size: 0.78rem;
-  color: rgba(0, 35, 73, 0.6);
-  letter-spacing: 0.02em;
+.credibility-sub {
+  margin: 12px auto 0;
+  max-width: 62ch;
+  font-size: 0.98rem;
+  color: var(--slate);
 }
+
+/* Metric pills — raised cards on the cream ground, one per headline number */
+.metric-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 14px;
+  margin-top: 40px;
+}
+.metric-pill {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 18px 28px;
+  background: var(--white);
+  border: 1px solid var(--cream-400);
+  border-radius: 16px;
+  box-shadow: 0 1px 2px -1px rgba(0, 35, 73, 0.1), 0 2px 6px rgba(0, 35, 73, 0.05);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+.metric-pill:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 2px 4px -1px rgba(0, 35, 73, 0.12), 0 8px 18px rgba(0, 35, 73, 0.08);
+}
+.metric-icon { width: 22px; height: 22px; color: var(--gold-600); flex: none; }
+.metric-value {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.7rem;
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+}
+.metric-value .cred-before { color: var(--slate-light); font-weight: 600; }
+.metric-value .cred-arrow { color: var(--slate-light); margin: 0 5px; font-weight: 400; }
+.metric-value .cred-after { color: var(--navy-950); }
+.metric-label {
+  font-size: 0.86rem;
+  font-weight: 600;
+  color: var(--slate);
+  white-space: nowrap;
+}
+
+/* Attribution chips — who recorded these numbers, and when */
+.source-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  margin-top: 28px;
+}
+.source-chip {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 12px;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  color: var(--slate);
+}
+.source-chip svg { width: 15px; height: 15px; flex: none; color: var(--gold-600); }
+.source-chip .source-strong { font-weight: 600; color: var(--navy-900); }
+.source-divider { width: 1px; height: 15px; background: var(--cream-400); margin: 0 4px; }
+
 @media (max-width: 560px) {
-  .credibility-stats { flex-direction: column; gap: 28px; margin-top: 28px; }
-  .credibility-stat + .credibility-stat::before {
-    top: 0; left: 20%; width: 60%; height: 1px;
-  }
+  .metric-pill { width: 100%; justify-content: flex-start; }
+  /* Dividers strand themselves at line ends once the chips wrap */
+  .source-divider { display: none; }
+  .source-row { gap: 0 6px; }
 }
 
 /* ---------- Cards ---------- */
