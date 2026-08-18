@@ -676,19 +676,84 @@ section { padding: 84px 0; }
   font-style: italic;
 }
 
-/* ---------- Contact ---------- */
-.contact-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 40px; }
-@media (max-width: 860px) { .contact-grid { grid-template-columns: 1fr; } }
-.contact-card {
-  background: var(--white);
-  border: 1px solid var(--cream-400);
-  border-radius: var(--radius);
-  padding: 30px;
-  transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+/* ---------- Contact ----------
+   Three contact methods in one divided band: rules between the cells rather
+   than gaps, alternating cell tints, and each cell bottom-aligning its
+   detail line so the addresses sit on a shared baseline. */
+.contact-methods {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  border-top: 1px solid var(--cream-400);
+  border-bottom: 1px solid var(--cream-400);
 }
-.contact-card:hover { border-color: var(--rl-blue); box-shadow: var(--shadow-soft); transform: translateY(-2px); }
-.contact-card .label { font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold-600); font-weight: 700; }
-.contact-card .value { font-family: var(--font-display); font-size: 1.15rem; color: var(--navy-950); margin-top: 10px; font-weight: 700; }
+.contact-method {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 40px 28px;
+  background: var(--white);
+  transition: background 0.2s ease;
+}
+.contact-method:nth-child(even) { background: var(--cream-200); }
+.contact-method + .contact-method { border-left: 1px solid var(--cream-400); }
+a.contact-method:hover { background: var(--cream-200); }
+
+.contact-method-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 52px;
+  height: 52px;
+  margin-bottom: 20px;
+  border-radius: 14px;
+  color: var(--gold-600);
+  background: rgba(186, 173, 114, 0.16);
+  border: 1px solid rgba(186, 173, 114, 0.34);
+  box-shadow: inset 0 2px 6px rgba(255, 255, 255, 0.9), inset 0 -4px 6px rgba(0, 35, 73, 0.07);
+  transition: transform 0.25s ease;
+}
+.contact-method-icon svg { width: 24px; height: 24px; }
+a.contact-method:hover .contact-method-icon { transform: translateY(-2px); }
+
+.contact-method h3 {
+  font-size: 1.15rem;
+  color: var(--navy-950);
+  margin-bottom: 10px;
+}
+.contact-method-desc {
+  font-size: 0.92rem;
+  line-height: 1.6;
+  color: var(--slate);
+  margin-bottom: 18px;
+  max-width: 30ch;
+}
+.contact-method-detail {
+  margin-top: auto;
+  font-weight: 600;
+  font-size: 1rem;
+  color: var(--navy-900);
+  word-break: break-word;
+}
+a.contact-method:hover .contact-method-detail { color: var(--rl-blue); }
+
+.contact-footnote {
+  margin-top: 44px;
+  text-align: center;
+  font-size: 0.95rem;
+  color: var(--slate);
+  max-width: 52ch;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+@media (max-width: 860px) {
+  .contact-methods { grid-template-columns: 1fr; }
+  .contact-method + .contact-method {
+    border-left: none;
+    border-top: 1px solid var(--cream-400);
+  }
+}
 
 /* ---------- Footer ---------- */
 .site-footer {
