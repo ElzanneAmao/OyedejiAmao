@@ -60,6 +60,16 @@ body {
   text-rendering: optimizeLegibility;
 }
 img, svg { max-width: 100%; display: block; }
+.visually-hidden {
+  position: absolute;
+  width: 1px; height: 1px;
+  margin: -1px; padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
 a { color: inherit; text-decoration: none; }
 ul { margin: 0; padding: 0; list-style: none; }
 h1, h2, h3, h4, p, figure { margin: 0; }
@@ -1017,6 +1027,165 @@ section { padding: 84px 0; }
 @media (max-width: 680px) {
   .case-row { grid-template-columns: 30px minmax(0, 1fr); gap: 14px 16px; padding: 26px 0; }
   .case-row-figure { grid-column: 2; grid-row: auto; margin-top: 4px; }
+}
+
+/* ---------- Case study detail ----------
+   Result-first: the outcome bar sits directly under the title so the
+   numbers land before the story. Section links reuse the How I Work rail's
+   data-rail / data-phase hooks, so no extra JavaScript is needed. */
+.csd-crumb {
+  padding: 18px 0;
+  border-bottom: 1px solid var(--cream-400);
+  font-size: 0.84rem;
+  color: var(--slate-light);
+}
+.csd-crumb a { color: var(--slate); font-weight: 600; }
+.csd-crumb a:hover { color: var(--rl-blue); }
+.csd-crumb span { margin: 0 8px; }
+
+.csd-head { background: var(--cream-200); padding: 52px 0 44px; }
+.csd-head h1 { margin-top: 14px; max-width: 20ch; }
+.csd-meta { display: flex; flex-wrap: wrap; gap: 44px; margin-top: 30px; }
+.csd-meta-item { display: flex; flex-direction: column; gap: 6px; }
+.csd-meta-label {
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--gold-600);
+}
+.csd-meta-value { font-size: 1rem; font-weight: 600; color: var(--navy-950); }
+
+.csd-outcomes { background: var(--navy-950); }
+.csd-outcomes .container { display: grid; grid-template-columns: repeat(4, 1fr); }
+/* Outer cells shed their side padding so the first and last figures line up
+   with the page margin rather than sitting inset from it. */
+.csd-outcome { padding: 32px 26px; border-left: 1px solid rgba(250, 249, 253, 0.16); }
+.csd-outcome:first-child { border-left: 0; padding-left: 0; }
+.csd-outcome:last-child { padding-right: 0; }
+.csd-outcome-value {
+  display: block;
+  font-size: clamp(1.7rem, 2.8vw, 2.3rem);
+  font-weight: 200;
+  letter-spacing: -0.035em;
+  line-height: 1;
+  color: var(--white);
+}
+.csd-outcome.lead .csd-outcome-value { color: var(--gold-400); font-weight: 300; }
+.csd-outcome-label { display: block; font-size: 0.78rem; line-height: 1.45; color: var(--cream-300); margin-top: 12px; }
+
+.csd-layout { display: grid; grid-template-columns: 1fr 250px; gap: 56px; align-items: start; }
+/* Grid items default to min-width:auto, so without this the table's
+   min-width pushes the whole column wider than the viewport instead of
+   scrolling inside .csd-table-wrap. */
+.csd-body { min-width: 0; }
+.csd-spine {
+  position: sticky;
+  top: 112px;
+  border: 1px solid var(--cream-400);
+  border-radius: 16px;
+  padding: 20px 18px;
+  background: var(--white);
+}
+.csd-spine-title {
+  display: block;
+  font-size: 0.66rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--slate-light);
+  margin-bottom: 14px;
+}
+.csd-spine a {
+  display: block;
+  border-left: 2px solid var(--cream-400);
+  padding: 8px 0 8px 13px;
+  font-size: 0.88rem;
+  color: var(--slate-light);
+  transition: color 0.2s ease, border-color 0.2s ease;
+}
+.csd-spine a:hover { color: var(--navy-950); }
+.csd-spine a.active { border-left-color: var(--gold-500); color: var(--navy-950); font-weight: 600; }
+
+.csd-sec { padding-bottom: 44px; border-bottom: 1px solid var(--cream-400); scroll-margin-top: 104px; }
+.csd-sec + .csd-sec { padding-top: 44px; }
+.csd-sec:last-child { border-bottom: none; padding-bottom: 0; }
+.csd-sec-head { display: flex; align-items: baseline; gap: 14px; }
+.csd-sec-num { font-size: 0.76rem; font-weight: 700; letter-spacing: 0.12em; color: var(--gold-600); }
+.csd-sec h2 { font-size: clamp(1.5rem, 2.4vw, 1.95rem); }
+.csd-sec p { font-size: 1rem; line-height: 1.72; color: var(--slate); max-width: 66ch; margin-top: 16px; }
+
+/* Head-to-head table. The winning column is tinted so the comparison reads
+   before the numbers are parsed. */
+.csd-table-wrap { overflow-x: auto; margin-top: 26px; }
+.csd-table {
+  width: 100%;
+  min-width: 520px;
+  border-collapse: separate;
+  border-spacing: 0;
+  border: 1px solid var(--cream-400);
+  border-radius: 12px;
+  overflow: hidden;
+}
+.csd-table th, .csd-table td {
+  padding: 14px 18px;
+  text-align: left;
+  font-size: 0.94rem;
+  border-bottom: 1px solid var(--cream-400);
+}
+.csd-table tr:last-child th, .csd-table tr:last-child td { border-bottom: 0; }
+.csd-table thead th {
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--slate);
+  background: var(--cream-100);
+}
+.csd-table thead th.win { color: var(--rl-blue); }
+.csd-table tbody th { font-weight: 500; color: var(--slate); }
+.csd-table td { color: var(--navy-950); }
+.csd-table .win { background: var(--rl-blue-tint); font-weight: 600; }
+.csd-table .win-figure { color: var(--rl-blue); font-weight: 700; }
+
+.csd-pager {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  border-top: 1px solid var(--cream-400);
+  border-bottom: 1px solid var(--cream-400);
+}
+.csd-pager a { padding: 26px 0; }
+.csd-pager a:last-child { text-align: right; border-left: 1px solid var(--cream-400); padding-left: 28px; }
+.csd-pager a:first-child { padding-right: 28px; }
+.csd-pager .dir {
+  display: block;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--slate-light);
+  margin-bottom: 8px;
+}
+.csd-pager .ttl { font-size: 1rem; font-weight: 600; color: var(--navy-950); line-height: 1.4; }
+.csd-pager a:hover .ttl { color: var(--rl-blue); }
+
+@media (max-width: 900px) {
+  .csd-layout { grid-template-columns: 1fr; gap: 0; }
+  /* The spine is a jump list on mobile, not a tracker — it sits above. */
+  .csd-spine { position: static; margin-bottom: 34px; }
+  .csd-outcomes .container { grid-template-columns: repeat(2, 1fr); }
+  .csd-outcome:nth-child(3) { border-left: 0; }
+  .csd-outcome:nth-child(n+3) { border-top: 1px solid rgba(250, 249, 253, 0.16); }
+}
+@media (max-width: 560px) {
+  .csd-outcomes .container { grid-template-columns: 1fr; }
+  /* Stacked, every cell aligns to the page margin, not just the first. */
+  .csd-outcome { border-left: 0; padding-left: 0; padding-right: 0; }
+  .csd-outcome + .csd-outcome { border-top: 1px solid rgba(250, 249, 253, 0.16); }
+  .csd-meta { gap: 24px 32px; }
+  .csd-pager { grid-template-columns: 1fr; }
+  .csd-pager a:last-child { text-align: left; border-left: 0; border-top: 1px solid var(--cream-400); padding-left: 0; }
+  .csd-pager a:first-child { padding-right: 0; }
 }
 
 /* ---------- Testimonials ----------
