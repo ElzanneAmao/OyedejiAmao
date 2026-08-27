@@ -42,11 +42,26 @@
   --font-body: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
 
   --max-width: 1180px;
-  --radius: 3px;
 
+  /* Three radii: controls are near-sharp, floating panels and tables are
+     mid, cards are soft. Circles use 50% directly. */
+  --radius: 3px;
+  --radius-md: 12px;
+  --radius-lg: 18px;
+
+  --shadow-card: 0 1px 2px -1px rgba(0, 35, 73, 0.08), 0 2px 6px rgba(0, 35, 73, 0.04);
+  --shadow-card-hover: 0 2px 4px -1px rgba(0, 35, 73, 0.1), 0 10px 22px rgba(0, 35, 73, 0.07);
   --shadow-soft: 0 1px 2px rgba(0, 35, 73, 0.06), 0 8px 24px rgba(0, 35, 73, 0.06);
   --shadow-lift: 0 4px 8px rgba(0, 35, 73, 0.08), 0 16px 40px rgba(0, 35, 73, 0.10);
 }
+
+/* Accent duties, so the two accent colours stop competing:
+   gold  = identity and furniture: eyebrows, numerals, tags, icon tiles,
+           the primary CTA, rail/spine active states.
+   blue  = interaction and the single standout figure per view: links,
+           hovers, the tinted winning column.
+   navy  = ink. It is never an accent.
+   The palette itself is provisional; these duties are not. */
 
 /* ---------- Reset ---------- */
 *, *::before, *::after { box-sizing: border-box; }
@@ -135,7 +150,7 @@ h3, .h3 {
   line-height: 1.6;
   color: var(--slate);
 }
-p.body, .prose p {
+.prose p {
   font-size: 1.05rem;
   line-height: 1.75;
   color: var(--slate);
@@ -143,13 +158,6 @@ p.body, .prose p {
 }
 .prose p + p { margin-top: 1.1em; }
 strong { color: var(--charcoal); font-weight: 600; }
-
-.rule-gold {
-  width: 56px;
-  height: 3px;
-  background: linear-gradient(90deg, var(--gold-500), var(--gold-300));
-  border-radius: 2px;
-}
 
 /* ---------- Buttons ---------- */
 .btn {
@@ -190,20 +198,6 @@ strong { color: var(--charcoal); font-weight: 600; }
 .btn-arrow:hover::after { transform: translateX(3px); }
 
 .cta-row { display: flex; flex-wrap: wrap; gap: 14px; align-items: center; }
-.text-link {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  font-weight: 600;
-  color: var(--rl-blue);
-  border-bottom: 1.5px solid var(--rl-blue);
-  padding-bottom: 2px;
-  transition: color 0.2s ease, border-color 0.2s ease, gap 0.2s ease;
-}
-.text-link:hover { color: var(--rl-blue-dark); border-color: var(--rl-blue-dark); gap: 12px; }
-.text-link.on-navy { color: var(--rl-blue-tint-on-navy); border-color: var(--rl-blue-tint-on-navy); }
-.text-link.on-navy:hover { color: var(--cream-100); border-color: var(--cream-100); }
-
 /* ---------- Header ---------- */
 .site-header {
   position: sticky;
@@ -285,7 +279,7 @@ strong { color: var(--charcoal); font-weight: 600; }
   min-width: 280px;
   background: var(--white);
   border: 1px solid var(--cream-400);
-  border-radius: var(--radius);
+  border-radius: var(--radius-md);
   box-shadow: var(--shadow-lift);
   padding: 10px;
   opacity: 0;
@@ -450,31 +444,6 @@ section { padding: 84px 0; }
 .section-cream { background: var(--cream-200); }
 .section-tight { padding: 64px 0; }
 
-/* Bone ground with a fine Ralph Lauren blue pinstripe — used sparingly,
-   on the numbers strip and the closing CTA panels, for suiting-fabric texture.
-   The pattern lives on a masked ::before (not the section background) so it
-   can fade at the top/bottom edges instead of hard-cutting like ruled paper. */
-.pinstripe {
-  position: relative;
-  z-index: 0; /* establish a stacking context so ::before's z-index:-1 stays local */
-  background-color: var(--cream-100);
-}
-.pinstripe::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  background-image: repeating-linear-gradient(
-    90deg,
-    rgba(0, 85, 164, 0.16) 0,
-    rgba(0, 85, 164, 0.16) 1px,
-    transparent 1px,
-    transparent 9px
-  );
-  -webkit-mask-image: linear-gradient(to bottom, transparent, black 18%, black 82%, transparent);
-  mask-image: linear-gradient(to bottom, transparent, black 18%, black 82%, transparent);
-}
-
 .section-head { max-width: 720px; margin-bottom: 48px; }
 .section-head h2 { margin-top: 14px; }
 .section-head .lede { margin-top: 14px; }
@@ -522,13 +491,13 @@ section { padding: 84px 0; }
   padding: 18px 28px;
   background: var(--white);
   border: 1px solid var(--cream-400);
-  border-radius: 16px;
-  box-shadow: 0 1px 2px -1px rgba(0, 35, 73, 0.1), 0 2px 6px rgba(0, 35, 73, 0.05);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card);
   transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
 .metric-pill:hover {
   transform: translateY(-2px);
-  box-shadow: 0 2px 4px -1px rgba(0, 35, 73, 0.12), 0 8px 18px rgba(0, 35, 73, 0.08);
+  box-shadow: var(--shadow-card-hover);
 }
 .metric-icon { width: 22px; height: 22px; color: var(--gold-600); flex: none; }
 /* The before/after pair is the contrast: light grey "was", heavy navy "now". */
@@ -563,7 +532,7 @@ section { padding: 84px 0; }
   align-items: center;
   gap: 8px;
   padding: 6px 12px;
-  border-radius: 8px;
+  border-radius: var(--radius-md);
   font-size: 0.85rem;
   color: var(--slate);
 }
@@ -576,64 +545,6 @@ section { padding: 84px 0; }
   /* Dividers strand themselves at line ends once the chips wrap */
   .source-divider { display: none; }
   .source-row { gap: 0 6px; }
-}
-
-/* ---------- Cards ---------- */
-.card-grid { display: grid; gap: 28px; }
-.grid-2 { grid-template-columns: repeat(2, 1fr); }
-.grid-3 { grid-template-columns: repeat(3, 1fr); }
-@media (max-width: 860px) {
-  .grid-2, .grid-3 { grid-template-columns: 1fr; }
-}
-
-.case-card {
-  background: var(--white);
-  border: 1px solid var(--cream-400);
-  border-radius: var(--radius);
-  padding: 32px;
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-  transition: box-shadow 0.2s ease, transform 0.2s ease, border-color 0.2s ease;
-}
-.case-card:hover { box-shadow: var(--shadow-lift); transform: translateY(-3px); border-color: var(--rl-blue); }
-.case-card .case-meta { font-size: 0.82rem; color: var(--slate-light); font-weight: 600; }
-.case-card h3 { color: var(--navy-950); }
-.case-card p { color: var(--slate); font-size: 0.98rem; line-height: 1.6; }
-.case-card .case-result {
-  margin-top: auto;
-  padding-top: 14px;
-  border-top: 1px dashed var(--cream-400);
-  font-size: 0.86rem;
-  font-weight: 700;
-  color: var(--gold-600);
-}
-
-/* ---------- Steps (How I Work) ---------- */
-.step-list { display: flex; flex-direction: column; }
-.step {
-  display: grid;
-  grid-template-columns: 96px 1fr;
-  gap: 28px;
-  padding: 36px 0;
-  border-top: 1px solid var(--cream-400);
-  position: relative;
-}
-.step:first-child { border-top: 1px solid var(--cream-400); }
-.step-number {
-  font-family: var(--font-display);
-  font-weight: 200;
-  font-size: 2.6rem;
-  letter-spacing: -0.04em;
-  color: var(--gold-400);
-  line-height: 1;
-}
-.step h3 { color: var(--navy-950); margin-bottom: 10px; }
-.step p { color: var(--slate); line-height: 1.75; max-width: 62ch; }
-
-@media (max-width: 640px) {
-  .step { grid-template-columns: 56px 1fr; gap: 16px; }
-  .step-number { font-size: 1.7rem; }
 }
 
 /* ---------- Callout / pull quote ---------- */
@@ -653,51 +564,11 @@ section { padding: 84px 0; }
 .panel-navy {
   background: var(--navy-950);
   color: var(--cream-200);
-  border-radius: var(--radius);
+  border-radius: var(--radius-lg);
   padding: 44px;
 }
 .panel-navy p { color: var(--cream-300); }
 .panel-navy h3 { color: var(--white); }
-
-/* ---------- Case study page ---------- */
-.meta-row {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 28px;
-  margin-top: 28px;
-  padding-top: 24px;
-  border-top: 1px solid rgba(250, 244, 230, 0.18);
-}
-.meta-item { display: flex; flex-direction: column; gap: 4px; }
-.meta-item .label { font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold-300); font-weight: 700; }
-.meta-item .value { font-size: 0.98rem; color: var(--cream-100); font-weight: 600; }
-
-.cs-section { padding: 56px 0; border-top: 1px solid var(--cream-400); }
-.cs-section:first-of-type { border-top: none; }
-.cs-label { display: flex; align-items: center; gap: 12px; margin-bottom: 20px; }
-.cs-label .num { font-family: var(--font-display); font-weight: 700; color: var(--gold-500); font-size: 1.1rem; }
-.cs-label .txt { font-size: 0.78rem; letter-spacing: 0.14em; text-transform: uppercase; font-weight: 700; color: var(--navy-800); }
-
-.result-stat-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--cream-400); border: 1px solid var(--cream-400); border-radius: var(--radius); margin-top: 28px; overflow: hidden; }
-@media (max-width: 860px) { .result-stat-grid { grid-template-columns: repeat(2, 1fr); } }
-@media (max-width: 520px) { .result-stat-grid { grid-template-columns: 1fr; } }
-
-.cs-nav {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 20px;
-  padding: 40px 0;
-  border-top: 1px solid var(--cream-400);
-  flex-wrap: wrap;
-}
-
-.confirm-note {
-  margin-top: 18px;
-  font-size: 0.86rem;
-  color: var(--slate-light);
-  font-style: italic;
-}
 
 /* ---------- How I Work: sticky phase rail ----------
    A numbered rail tracks the reader's position through the method while the
@@ -772,7 +643,7 @@ section { padding: 84px 0; }
 .figure { border-top: 2px solid var(--navy-950); padding-top: 13px; }
 .figure-value {
   display: block;
-  font-size: 1.85rem;
+  font-size: 1.75rem;
   font-weight: 300;
   letter-spacing: -0.03em;
   line-height: 1;
@@ -803,7 +674,7 @@ section { padding: 84px 0; }
 .reality-card {
   background: var(--white);
   border: 1px solid var(--cream-400);
-  border-radius: 16px;
+  border-radius: var(--radius-lg);
   padding: 26px;
 }
 .reality-tag {
@@ -866,7 +737,7 @@ section { padding: 84px 0; }
   margin: 0;
   aspect-ratio: 3 / 4;
   overflow: hidden;
-  border-radius: 22px;
+  border-radius: var(--radius-lg);
   background: var(--navy-900);
   box-shadow: 0 2px 6px rgba(0, 35, 73, 0.1), 0 18px 40px rgba(0, 35, 73, 0.12);
 }
@@ -932,9 +803,7 @@ section { padding: 84px 0; }
   .about-body .prose { max-width: 100%; }
 }
 
-/* ---------- Case study feed ----------
-   Image-led cards. `.case-post` is deliberately separate from `.case-card`,
-   which the individual case study pages use for in-page content blocks. */
+/* ---------- Case study feed ---------- */
 .case-feed-head {
   display: grid;
   grid-template-columns: 1fr 400px;
@@ -1083,7 +952,7 @@ section { padding: 84px 0; }
   position: sticky;
   top: 112px;
   border: 1px solid var(--cream-400);
-  border-radius: 16px;
+  border-radius: var(--radius-lg);
   padding: 20px 18px;
   background: var(--white);
 }
@@ -1124,7 +993,7 @@ section { padding: 84px 0; }
   border-collapse: separate;
   border-spacing: 0;
   border: 1px solid var(--cream-400);
-  border-radius: 12px;
+  border-radius: var(--radius-md);
   overflow: hidden;
 }
 .csd-table th, .csd-table td {
@@ -1207,13 +1076,13 @@ section { padding: 84px 0; }
   padding: 32px 30px;
   background: var(--white);
   border: 1px solid var(--cream-400);
-  border-radius: 20px;
-  box-shadow: 0 1px 2px -1px rgba(0, 35, 73, 0.08), 0 2px 6px rgba(0, 35, 73, 0.04);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card);
   transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
 .testimonial-card:hover {
   transform: translateY(-3px);
-  box-shadow: 0 2px 4px -1px rgba(0, 35, 73, 0.1), 0 10px 22px rgba(0, 35, 73, 0.07);
+  box-shadow: var(--shadow-card-hover);
 }
 .testimonial-card blockquote { margin: 0; }
 .testimonial-pull {
@@ -1298,7 +1167,7 @@ a.contact-method:hover { background: var(--cream-200); }
   width: 52px;
   height: 52px;
   margin-bottom: 20px;
-  border-radius: 14px;
+  border-radius: var(--radius-md);
   color: var(--gold-600);
   background: rgba(186, 173, 114, 0.16);
   border: 1px solid rgba(186, 173, 114, 0.34);
@@ -1374,6 +1243,4 @@ a.contact-method:hover .contact-method-detail { color: var(--rl-blue); }
 }
 
 /* ---------- Utility ---------- */
-.mt-0 { margin-top: 0 !important; }
 .text-center { text-align: center; }
-.center-head { margin-left: auto; margin-right: auto; text-align: center; }
