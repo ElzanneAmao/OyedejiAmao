@@ -689,6 +689,156 @@ section { padding: 84px 0; }
   font-style: italic;
 }
 
+/* ---------- How I Work: sticky phase rail ----------
+   A numbered rail tracks the reader's position through the method while the
+   phases scroll past. Rail links are real anchors, so they still jump
+   correctly with JavaScript disabled - the script only adds smooth
+   scrolling and the active state. */
+.method-layout {
+  display: grid;
+  grid-template-columns: 208px 1fr;
+  gap: 64px;
+  align-items: start;
+}
+.method-rail { position: sticky; top: 112px; }
+.method-rail-title {
+  display: block;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--slate-light);
+  margin-bottom: 16px;
+}
+.rail-link {
+  display: block;
+  border-left: 2px solid var(--cream-400);
+  padding: 10px 0 10px 16px;
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: var(--slate-light);
+  transition: color 0.2s ease, border-color 0.2s ease;
+}
+.rail-link .rn {
+  display: block;
+  font-size: 0.66rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: var(--slate-light);
+  margin-bottom: 3px;
+  transition: color 0.2s ease;
+}
+.rail-link:hover { color: var(--navy-950); }
+.rail-link.active { border-left-color: var(--gold-500); color: var(--navy-950); }
+.rail-link.active .rn { color: var(--gold-600); }
+.rail-div { display: block; height: 1px; background: var(--cream-400); margin: 16px 0 16px 0; }
+
+.phase {
+  padding-bottom: 56px;
+  border-bottom: 1px solid var(--cream-400);
+  /* Clears the sticky header when a rail link jumps here. */
+  scroll-margin-top: 104px;
+}
+.phase + .phase { padding-top: 56px; }
+.phase:last-child { border-bottom: none; padding-bottom: 0; }
+
+.phase-num {
+  display: block;
+  font-size: clamp(3rem, 5.5vw, 4.4rem);
+  font-weight: 200;
+  line-height: 0.9;
+  letter-spacing: -0.05em;
+  color: var(--gold-400);
+  margin-bottom: 8px;
+}
+.phase h2 { margin: 0; }
+.phase p { font-size: 1rem; line-height: 1.72; color: var(--slate); max-width: 64ch; margin-top: 18px; }
+.phase-lead { font-size: 1.08rem; font-weight: 500; color: var(--navy-950); margin-top: 22px; }
+.phase-close { font-size: 1.06rem; font-weight: 500; color: var(--navy-950); max-width: 58ch; margin-top: 28px; }
+
+/* Figures print as ruled margin data rather than boxed cards. */
+.figure-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; margin-top: 36px; }
+.figure-row-2 { grid-template-columns: repeat(2, 1fr); }
+.figure { border-top: 2px solid var(--navy-950); padding-top: 13px; }
+.figure-value {
+  display: block;
+  font-size: 1.85rem;
+  font-weight: 300;
+  letter-spacing: -0.03em;
+  line-height: 1;
+  color: var(--navy-950);
+}
+.figure-value.accent { color: var(--rl-blue); }
+.figure-label { display: block; font-size: 0.82rem; line-height: 1.5; color: var(--slate); margin-top: 9px; }
+
+.figure-feature {
+  display: flex;
+  align-items: flex-end;
+  gap: 30px;
+  margin-top: 36px;
+  border-top: 2px solid var(--navy-950);
+  padding-top: 16px;
+}
+.figure-feature-value {
+  font-size: clamp(2.6rem, 5vw, 3.5rem);
+  font-weight: 200;
+  letter-spacing: -0.04em;
+  line-height: 0.95;
+  color: var(--rl-blue);
+  flex: none;
+}
+.figure-feature-note { font-size: 0.88rem; line-height: 1.5; color: var(--slate); max-width: 34ch; margin: 0 0 6px; }
+
+.reality-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 30px; }
+.reality-card {
+  background: var(--white);
+  border: 1px solid var(--cream-400);
+  border-radius: 16px;
+  padding: 26px;
+}
+.reality-tag {
+  display: block;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--gold-600);
+  margin-bottom: 14px;
+}
+.reality-card h3 { font-size: 1.14rem; }
+.reality-card p { font-size: 0.92rem; line-height: 1.62; color: var(--slate); margin-top: 12px; max-width: none; }
+
+.lede-mark { font-style: normal; color: var(--gold-300); }
+
+@media (max-width: 900px) {
+  .method-layout { grid-template-columns: 1fr; gap: 0; }
+  /* Rail collapses to a scrollable strip pinned under the site header. */
+  .method-rail {
+    top: 84px;
+    z-index: 50;
+    display: flex;
+    gap: 0;
+    overflow-x: auto;
+    margin: 0 -24px 34px;
+    padding: 0 24px;
+    background: var(--cream-100);
+    border-bottom: 1px solid var(--cream-400);
+    scrollbar-width: none;
+  }
+  .method-rail::-webkit-scrollbar { display: none; }
+  .method-rail-title, .rail-div, .rail-link .rn { display: none; }
+  .rail-link {
+    border-left: 0;
+    border-bottom: 2px solid transparent;
+    padding: 13px 14px;
+    white-space: nowrap;
+  }
+  .rail-link.active { border-bottom-color: var(--gold-500); }
+  .phase { scroll-margin-top: 140px; }
+  .figure-row, .figure-row-2, .reality-grid { grid-template-columns: 1fr; gap: 22px; }
+  .figure-feature { flex-direction: column; align-items: flex-start; gap: 12px; }
+}
+
 /* ---------- About: portrait beside the prose ----------
    The portrait sticks while the bio scrolls past it, so the page keeps a
    face on screen instead of running as an unbroken column of text. */

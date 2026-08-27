@@ -36,4 +36,38 @@
     }
   });
 
+  // How I Work: highlight the rail link for the phase currently in view.
+  // The links are ordinary anchors, so navigation already works without
+  // this — it only adds the active state and horizontal rail tracking.
+  var railLinks = document.querySelectorAll("[data-rail]");
+  var phases = document.querySelectorAll("[data-phase]");
+  if (railLinks.length && phases.length && "IntersectionObserver" in window) {
+    var linkFor = {};
+    railLinks.forEach(function (link) {
+      linkFor[link.getAttribute("href").slice(1)] = link;
+    });
+
+    var setActive = function (id) {
+      railLinks.forEach(function (link) {
+        link.classList.toggle("active", link === linkFor[id]);
+      });
+      // On mobile the rail scrolls horizontally; keep the active chip visible.
+      var active = linkFor[id];
+      var rail = document.querySelector(".method-rail");
+      if (active && rail && rail.scrollWidth > rail.clientWidth) {
+        var target = active.offsetLeft - (rail.clientWidth - active.offsetWidth) / 2;
+        rail.scrollTo({ left: Math.max(0, target), behavior: "smooth" });
+      }
+    };
+
+    var observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) setActive(entry.target.id);
+      });
+    }, { rootMargin: "-120px 0px -62% 0px" });
+
+    phases.forEach(function (phase) { observer.observe(phase); });
+    setActive(phases[0].id);
+  }
+
 })();
