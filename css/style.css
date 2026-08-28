@@ -433,7 +433,11 @@ strong { color: var(--charcoal); font-weight: 600; }
 
 /* ---------- Sections ---------- */
 section { padding: 84px 0; }
-.section-cream { background: var(--cream-200); }
+/* Navy statement band: separates the light credibility strip above from
+   the light register below, so the sections stop bleeding into each other. */
+.statement-band { background: var(--navy-950); }
+.statement-band h2 { color: var(--white); }
+.statement-band .lede { color: var(--cream-300); }
 .section-tight { padding: 64px 0; }
 
 .section-head { max-width: 720px; margin-bottom: 48px; }
@@ -669,7 +673,9 @@ section { padding: 84px 0; }
   border: 1px solid var(--cream-400);
   border-radius: var(--radius-lg);
   padding: 26px;
+  transition: border-color 0.25s ease;
 }
+.reality-card:hover { border-color: var(--rl-blue); }
 .reality-tag {
   display: block;
   font-size: 0.68rem;
@@ -1080,10 +1086,11 @@ section { padding: 84px 0; }
   border: 1px solid var(--cream-400);
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-card);
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
 }
 .testimonial-card:hover {
   transform: translateY(-3px);
+  border-color: var(--rl-blue);
   box-shadow: var(--shadow-card-hover);
 }
 .testimonial-card blockquote { margin: 0; }
@@ -1219,7 +1226,7 @@ a.contact-method:hover .contact-method-detail { color: var(--rl-blue); }
 .footer-brand .brand-mark { background: rgba(250, 249, 253, 0.1); }
 .footer-brand .brand-name { color: var(--white); }
 .footer-brand .brand-role { color: var(--gold-400); }
-.footer-nav { display: flex; gap: 32px; flex-wrap: wrap; }
+.footer-nav { display: flex; gap: 24px 72px; flex-wrap: wrap; }
 .footer-nav-col { display: flex; flex-direction: column; gap: 10px; }
 .footer-nav-col a { font-size: 0.9rem; color: var(--cream-300); }
 .footer-nav-col a:hover { color: var(--rl-blue-tint-on-navy); }
