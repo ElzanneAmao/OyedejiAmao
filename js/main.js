@@ -70,4 +70,56 @@
     setActive(phases[0].id);
   }
 
+  // About: showreel-style photo slider. One slide fills the frame at a
+  // time; arrows and dots navigate, and it autoplays unless the visitor
+  // has asked for reduced motion.
+  var slider = document.querySelector("[data-photo-slider]");
+  if (slider) {
+    var track = slider.querySelector(".photo-slider-track");
+    var slides = slider.querySelectorAll(".photo-slide");
+    var dots = slider.querySelectorAll("[data-slider-dot]");
+    var prevBtn = slider.querySelector("[data-slider-prev]");
+    var nextBtn = slider.querySelector("[data-slider-next]");
+    var index = 0;
+    var timer = null;
+    var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    var render = function () {
+      track.style.transform = "translateX(-" + index * 100 + "%)";
+      dots.forEach(function (dot, i) {
+        dot.setAttribute("aria-current", String(i === index));
+      });
+    };
+
+    var goTo = function (i) {
+      index = (i + slides.length) % slides.length;
+      render();
+    };
+
+    var next = function () { goTo(index + 1); };
+    var prev = function () { goTo(index - 1); };
+
+    var stopAutoplay = function () {
+      if (timer) { clearInterval(timer); timer = null; }
+    };
+    var startAutoplay = function () {
+      if (reduceMotion) return;
+      stopAutoplay();
+      timer = setInterval(next, 4000);
+    };
+
+    if (prevBtn) prevBtn.addEventListener("click", function () { prev(); startAutoplay(); });
+    if (nextBtn) nextBtn.addEventListener("click", function () { next(); startAutoplay(); });
+    dots.forEach(function (dot, i) {
+      dot.addEventListener("click", function () { goTo(i); startAutoplay(); });
+    });
+    slider.addEventListener("mouseenter", stopAutoplay);
+    slider.addEventListener("mouseleave", startAutoplay);
+    slider.addEventListener("focusin", stopAutoplay);
+    slider.addEventListener("focusout", startAutoplay);
+
+    render();
+    startAutoplay();
+  }
+
 })();
