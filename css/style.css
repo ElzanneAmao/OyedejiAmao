@@ -995,7 +995,11 @@ section { padding: 84px 0; }
 .csd-meta-value { font-size: 1rem; font-weight: 600; color: var(--navy-950); }
 
 .csd-outcomes { background: var(--navy-950); }
-.csd-outcomes .container { display: grid; grid-template-columns: repeat(4, 1fr); }
+/* Column count is a custom property so a page with fewer outcomes (set via
+   inline style="--outcome-count:3") still gets equal-width columns on
+   desktop, without an inline grid-template-columns that would outrank the
+   mobile breakpoints below regardless of viewport. */
+.csd-outcomes .container { display: grid; grid-template-columns: repeat(var(--outcome-count, 4), 1fr); }
 /* Outer cells shed their side padding so the first and last figures line up
    with the page margin rather than sitting inset from it. */
 .csd-outcome { padding: 32px 26px; border-left: 1px solid rgba(250, 249, 253, 0.16); }

@@ -1,27 +1,16 @@
 # Photos for the About page
 
-Drop these JPEGs here with the exact filenames below. Until a file exists,
-the page falls back to the shared placeholder automatically, so it's safe
-to add them one at a time.
+All five are in place: `family.jpg`, `athens.jpg`, `cdwm-dinner.jpg`,
+`cdwm-win.jpg` in the "Outside of work" strip, and `portrait.jpg` as the
+sticky headshot at the top of the page.
 
-| Filename            | Photo                                          |
-|---------------------|-------------------------------------------------|
-| `family.jpg`        | With his wife and child (child not identifiable) |
-| `athens.jpg`         | Panathenaic Stadium, Athens                      |
-| `cdwm-dinner.jpg`    | Come Dine With Me, the table                     |
-| `cdwm-win.jpg`       | Come Dine With Me, the win                       |
+Each was cropped to its frame's aspect ratio by hand (the two Come Dine
+With Me photos and the portrait needed an off-centre crop to keep the
+right people/face in frame) and resized to a sane web weight — long edge
+capped at 1400px for the strip, 1200px for the portrait, JPEG q82. Total
+folder weight is under 1MB; the originals were 37MB combined.
 
-**Format:** JPEG, portrait or square, at least 960px on the short edge.
-Frames crop to 4:5 from the centre, so keep faces near the middle and
-leave a little room at the edges — group or landscape shots may need
-`object-position` nudged in `.photo-frame img` if the crop lands wrong.
-
-To change a caption, edit `about.html` and search for `photo-caption`.
-
-## Portrait
-
-`assets/portrait-placeholder.svg` is still the sticky headshot at the top
-of the About page. If a proper headshot becomes available, save it as
-`assets/portrait.jpg` and update the `<img src>` in the `.portrait-card`
-figure in `about.html` (it currently points at the placeholder SVG
-directly, not via onerror fallback).
+If a photo is ever swapped, match the frame's ratio before dropping in a
+replacement: 4:5 for the strip photos, 3:4 for the portrait. Both fall
+back to a placeholder SVG via `onerror` if the file is ever missing, so a
+bad path degrades gracefully instead of showing a broken image icon.
