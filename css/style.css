@@ -336,7 +336,7 @@ strong { color: var(--charcoal); font-weight: 600; }
   border-bottom: 1px solid var(--cream-400);
 }
 .nav-mobile.open { display: flex; }
-.nav-mobile a, .nav-mobile button.nav-accordion-toggle {
+.nav-mobile a:not(.btn), .nav-mobile button.nav-accordion-toggle {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -434,6 +434,13 @@ strong { color: var(--charcoal); font-weight: 600; }
 
 /* ---------- Sections ---------- */
 section { padding: 84px 0; }
+@media (max-width: 780px) {
+  /* Two stacked 84px paddings left ~170px between sections on a phone. */
+  section { padding: 52px 0; }
+  .section-tight { padding: 40px 0; }
+  .csd-story { padding: 28px 0 40px; }
+  .method-layout { gap: 0; }
+}
 /* Navy statement band: separates the light credibility strip above from
    the light register below, so the sections stop bleeding into each other. */
 .statement-band { background: var(--navy-950); }
@@ -492,9 +499,11 @@ section { padding: 84px 0; }
   box-shadow: var(--shadow-card);
   transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
-.metric-pill:hover {
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-card-hover);
+@media (hover: hover) {
+  .metric-pill:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-card-hover);
+  }
 }
 .metric-icon { width: 22px; height: 22px; color: var(--gold-600); flex: none; }
 /* The before/after pair is the contrast: light grey "was", heavy navy "now". */
@@ -676,7 +685,9 @@ section { padding: 84px 0; }
   padding: 26px;
   transition: border-color 0.25s ease;
 }
-.reality-card:hover { border-color: var(--rl-blue); }
+@media (hover: hover) {
+  .reality-card:hover { border-color: var(--rl-blue); }
+}
 .reality-tag {
   display: block;
   font-size: 0.68rem;
@@ -842,7 +853,9 @@ section { padding: 84px 0; }
   border-bottom: 1px solid var(--cream-400);
   transition: background 0.2s ease;
 }
-.case-row:hover { background: var(--cream-200); }
+@media (hover: hover) {
+  .case-row:hover { background: var(--cream-200); }
+}
 .case-row-index {
   font-size: 0.78rem;
   font-weight: 700;
@@ -894,8 +907,20 @@ section { padding: 84px 0; }
   .case-row-arrow { display: none; }
 }
 @media (max-width: 680px) {
-  .case-row { grid-template-columns: 30px minmax(0, 1fr); gap: 14px 16px; padding: 26px 0; }
-  .case-row-figure { grid-column: 2; grid-row: auto; margin-top: 4px; }
+  /* Without hover to separate them, four ruled rows read as one column of
+     text. Cards give each case a visible edge. */
+  .case-register { border-top: 0; display: flex; flex-direction: column; gap: 14px; }
+  .case-row {
+    grid-template-columns: 30px minmax(0, 1fr);
+    gap: 12px 16px;
+    padding: 22px 20px;
+    background: var(--white);
+    border: 1px solid var(--cream-400);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-card);
+  }
+  .case-row-figure { grid-column: 2; grid-row: auto; margin-top: 2px; }
+  .case-row h3 { font-size: 1.16rem; }
 }
 
 /* ---------- Case study detail ----------
@@ -1049,8 +1074,9 @@ section { padding: 84px 0; }
 
 @media (max-width: 900px) {
   .csd-layout { grid-template-columns: 1fr; gap: 0; }
-  /* The spine is a jump list on mobile, not a tracker — it sits above. */
-  .csd-spine { position: static; margin-bottom: 34px; }
+  /* The spine is a jump list on mobile, not a tracker, so it leads the
+     story instead of trailing it. */
+  .csd-spine { position: static; order: -1; margin-bottom: 28px; }
   .csd-outcomes .container { grid-template-columns: repeat(2, 1fr); }
   .csd-outcome:nth-child(3) { border-left: 0; }
   .csd-outcome:nth-child(n+3) { border-top: 1px solid rgba(250, 249, 253, 0.16); }
@@ -1089,10 +1115,12 @@ section { padding: 84px 0; }
   box-shadow: var(--shadow-card);
   transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
 }
-.testimonial-card:hover {
-  transform: translateY(-3px);
-  border-color: var(--rl-blue);
-  box-shadow: var(--shadow-card-hover);
+@media (hover: hover) {
+  .testimonial-card:hover {
+    transform: translateY(-3px);
+    border-color: var(--rl-blue);
+    box-shadow: var(--shadow-card-hover);
+  }
 }
 .testimonial-card blockquote { margin: 0; }
 .testimonial-pull {
@@ -1205,6 +1233,9 @@ a.contact-method:hover .contact-method-detail { color: var(--rl-blue); }
     border-left: none;
     border-top: 1px solid var(--cream-400);
   }
+  /* Stacked, the alternating tint reads as random banding rather than as
+     columns, so the rules alone carry the separation. */
+  .contact-method:nth-child(even) { background: var(--white); }
 }
 
 /* ---------- Footer ---------- */
