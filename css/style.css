@@ -43,9 +43,10 @@
 
   --max-width: 1180px;
 
-  /* Three radii: controls are near-sharp, floating panels and tables are
-     mid, cards are soft. Circles use 50% directly. */
-  --radius: 3px;
+  /* Three radii: controls, then floating panels and tables, then cards.
+     Circles use 50% directly. Controls sit a step under the panels so
+     buttons read as part of the same family, not as sharp leftovers. */
+  --radius: 8px;
   --radius-md: 12px;
   --radius-lg: 18px;
 
@@ -361,7 +362,7 @@ strong { color: var(--charcoal); font-weight: 600; }
 
 /* ---------- Hero ---------- */
 .hero {
-  background: radial-gradient(120% 160% at 15% 0%, var(--navy-800) 0%, var(--navy-950) 60%);
+  background: radial-gradient(120% 160% at 15% 0%, #0b3059 0%, var(--navy-950) 55%);
   color: var(--cream-200);
   padding: 96px 0 88px;
   position: relative;
@@ -752,7 +753,7 @@ section { padding: 84px 0; }
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(to top, rgba(0, 20, 42, 0.92) 0%, rgba(0, 20, 42, 0.45) 32%, transparent 62%);
+  background: linear-gradient(to top, rgba(0, 35, 73, 0.94) 0%, rgba(0, 35, 73, 0.5) 32%, transparent 62%);
 }
 .portrait-id {
   position: absolute;
